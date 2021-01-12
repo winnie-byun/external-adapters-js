@@ -52,7 +52,6 @@ export const execute: ExecuteWithConfig = async (request, config) => {
     convert,
     'price',
   ])
-  console.log('result:', result)
   return Requester.success(jobRunID, {
     data: { result },
     result,

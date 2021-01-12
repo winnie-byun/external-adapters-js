@@ -1,9 +1,11 @@
-const { assert } = require('chai')
-const { assertSuccess, assertError } = require('@chainlink/adapter-test-helpers')
-const { execute } = require('../adapter')
+import { assert } from 'chai'
+import { assertSuccess, assertError } from '@chainlink/adapter-test-helpers'
+import { AdapterRequest } from '@chainlink/types'
+import { makeExecute } from '@chainlink/coinpaprika-adapter/dist/adapter'
 
 describe('execute', () => {
   const jobID = '1'
+  const execute = makeExecute()
 
   context('successful calls @integration', () => {
     const requests = [
@@ -26,13 +28,13 @@ describe('execute', () => {
     ]
 
     requests.forEach((req) => {
-      it(`${req.name}`, (done) => {
-        execute(req.testData, (statusCode, data) => {
-          assertSuccess({ expected: 200, actual: statusCode }, data, jobID)
-          assert.isAbove(data.result, 0)
-          assert.isAbove(data.data.result, 0)
-          done()
-        })
+      it(`${req.name}`, async (done) => {
+        const data = await execute(req.testData as AdapterRequest)
+        console.log(data)
+        assertSuccess({ expected: 200, actual: data.statusCode }, data, jobID)
+        assert.isAbove(data.result, 0)
+        assert.isAbove(data.data.result, 0)
+        done()
       })
     })
   })
@@ -60,11 +62,10 @@ describe('execute', () => {
     ]
 
     requests.forEach((req) => {
-      it(`${req.name}`, (done) => {
-        execute(req.testData, (statusCode, data) => {
-          assertError({ expected: 400, actual: statusCode }, data, jobID)
-          done()
-        })
+      it(`${req.name}`, async (done) => {
+        const data = await execute(req.testData as AdapterRequest)
+        assertError({ expected: 400, actual: data.statusCode }, data, jobID)
+        done()
       })
     })
   })
@@ -90,11 +91,10 @@ describe('execute', () => {
     ]
 
     requests.forEach((req) => {
-      it(`${req.name}`, (done) => {
-        execute(req.testData, (statusCode, data) => {
-          assertError({ expected: 500, actual: statusCode }, data, jobID)
-          done()
-        })
+      it(`${req.name}`, async (done) => {
+        const data = await execute(req.testData as AdapterRequest)
+        assertError({ expected: 500, actual: data.statusCode }, data, jobID)
+        done()
       })
     })
   })
