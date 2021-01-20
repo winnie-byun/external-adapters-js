@@ -1,5 +1,4 @@
 import { Requester } from '@chainlink/external-adapter'
-import { Index } from '../adapter'
 import { util } from '@chainlink/ea-bootstrap'
 
 const getPriceData = async (symbol: string, currency: string) => {
@@ -22,13 +21,19 @@ const toAssetPrice = (data: Record<string, any>) => {
   return price
 }
 
-const getPriceIndex = async (index: Index, currency: string): Promise<Index> => {
-  return await Promise.all(
-    index.map(async (i) => {
-      const data = await getPriceData(i.asset, currency)
-      return { ...i, price: toAssetPrice(data) }
+export const getPrices = async (
+  baseSymbols: string[],
+  quote: string,
+): Promise<Record<string, number>> => {
+  const entries = await Promise.all(
+    baseSymbols.map(async (symbol) => {
+      const data = await getPriceData(symbol, quote)
+      return [symbol, toAssetPrice(data)]
     }),
   )
-}
 
-export default { getPriceIndex }
+  return Object.fromEntries(entries)
+}
+export const getMarketCaps = () => {
+  throw Error('not implemented')
+}

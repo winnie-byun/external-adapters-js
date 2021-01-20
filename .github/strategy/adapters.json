@@ -65,6 +65,7 @@
       "onchain",
       "openexchangerates",
       "orchid-bandwidth",
+      "paxos",
       "poa-gasprice",
       "polygon",
       "reduce",
@@ -78,7 +79,6 @@
       "wbtc-address-set",
       "xbto",
       "dydx-stark",
-      "token-allocation",
       "iex-cloud"
     ]
   },
@@ -110,7 +110,8 @@
       "outlier-detection",
       "apy-finance",
       "crypto-volatility-index",
-      "bitcoin-json-rpc"
+      "bitcoin-json-rpc",
+      "token-allocation"
     ]
   },
   "synth-index": {

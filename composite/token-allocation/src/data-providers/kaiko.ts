@@ -1,5 +1,4 @@
 import { Requester } from '@chainlink/external-adapter'
-import { Index } from '../adapter'
 import { util } from '@chainlink/ea-bootstrap'
 
 const getPriceData = async (symbol: string, currency: string) => {
@@ -31,16 +30,23 @@ const toAssetPrice = (data: Record<string, any>) => {
   return price
 }
 
-const getPriceIndex = async (index: Index, currency: string): Promise<Index> => {
-  return await Promise.all(
-    index.map(async (i) => {
+export const getPrices = async (
+  baseSymbols: string[],
+  quote: string,
+): Promise<Record<string, number>> => {
+  const entries = await Promise.all(
+    baseSymbols.map(async (symbol) => {
       // Particular for the Kaiko API only
-      const asset = i.asset === 'UNI' ? 'uniswap' : i.asset
-      const data = await getPriceData(asset, currency)
+      const asset = symbol === 'UNI' ? 'uniswap' : symbol
+      const data = await getPriceData(asset, quote)
       const notNullPrices = data.data.filter((x: any) => x.price !== null)
-      return { ...i, price: toAssetPrice(notNullPrices) }
+      return [symbol, toAssetPrice(notNullPrices)]
     }),
   )
+
+  return Object.fromEntries(entries)
 }
 
-export default { getPriceIndex }
+export const getMarketCaps = () => {
+  throw Error('not implemented')
+}
