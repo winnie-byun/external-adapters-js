@@ -15,6 +15,8 @@ const customParams = {
 const commonSymbols: { [key: string]: string } = {
   N225: 'NKY.IND:TEI',
   FTSE: 'UKX.IND:TEI',
+  TSLA: 'TSLA:BFX',
+  TSLAX: 'TSLA.US:TEI',
 }
 
 export const execute = async (config: Config, request: AdapterRequest) => {

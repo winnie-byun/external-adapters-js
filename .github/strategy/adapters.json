@@ -52,7 +52,6 @@
       "google-finance",
       "json-rpc",
       "kaiko",
-      "kaiko",
       "lcx",
       "linkpool",
       "lition",
@@ -65,6 +64,7 @@
       "onchain",
       "openexchangerates",
       "orchid-bandwidth",
+      "paxos",
       "poa-gasprice",
       "polygon",
       "reduce",
@@ -77,7 +77,8 @@
       "trueusd",
       "wbtc-address-set",
       "xbto",
-      "dydx-stark"
+      "dydx-stark",
+      "iex-cloud"
     ]
   },
   "2-step": {
@@ -100,7 +101,17 @@
     "cmd": "make zip adapter=composite/__ADAPTER__ name=__ADAPTER__",
     "asset_path": "./composite/__ADAPTER__/dist/__ADAPTER__-adapter.zip",
     "asset_name": "__ADAPTER__-adapter.zip",
-    "adapter": ["proof-of-reserves", "market-closure", "defi-pulse", "dns-record-check", "outlier-detection"]
+    "adapter": [
+      "proof-of-reserves",
+      "market-closure",
+      "defi-pulse",
+      "dns-record-check",
+      "outlier-detection",
+      "apy-finance",
+      "crypto-volatility-index",
+      "bitcoin-json-rpc",
+      "token-allocation"
+    ]
   },
   "synth-index": {
     "docker": "make docker-synth-index adapter=__ADAPTER__",
