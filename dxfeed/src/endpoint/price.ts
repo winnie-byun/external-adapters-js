@@ -4,7 +4,7 @@ import { ExecuteWithConfig, Config } from '@chainlink/types'
 const DEMO_ENDPOINT = 'https://tools.dxfeed.com/webservice/rest'
 const DEFAULT_DATA_ENDPOINT = 'events.json'
 
-export const Name = 'price'
+export const NAME = 'price'
 
 const customError = (data: any) => data.Response === 'Error'
 
