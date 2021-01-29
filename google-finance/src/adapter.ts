@@ -1,7 +1,7 @@
 import { Requester, Validator } from '@chainlink/external-adapter'
 import { Config, ExecuteWithConfig, ExecuteFactory } from '@chainlink/types'
 import { makeConfig } from './config'
-import { google } from 'boxhock_google-finance-data'
+import google from 'boxhock_google-finance-data'
 
 const commonKeys: Record<string, string> = {
   N225: 'INDEXNIKKEI:NI225',
